@@ -2,3 +2,6 @@
 composer.lock
 *.log
 thinkphp
+/public
+/runtime
+/vendor
