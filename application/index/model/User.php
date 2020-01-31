@@ -10,7 +10,7 @@ class User extends Model
     protected $name = 'users';
 
     // 自动写入时间戳字段
-    protected $autoWriteTimestamp = true;
+    protected $autoWriteTimestamp = false;
 
     // 定义时间戳字段名
     protected $createTime = 'created_at';

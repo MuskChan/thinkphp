@@ -32,8 +32,15 @@ class Users
         return view('index');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return 2;
+        $params = $request->instance()->param();
+        $this->model->save($params);
+        $result = array(
+            "code" => 200,
+            "msg" => '操作成功'
+        );
+
+        return json($result);
     }
 }
