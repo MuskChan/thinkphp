@@ -10,7 +10,8 @@
 // +----------------------------------------------------------------------
 //use think\Route;
 //// 注册路由到index模块的News控制器的read操作
-//Route::get('users','index/Users/index');
+//Route::get('/','index/index/index');
+//Route::get('/hello','index/index/hello');
 //这说明路由有用
 
 

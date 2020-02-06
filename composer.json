@@ -18,7 +18,8 @@
     "require": {
         "php": ">=5.4.0",
         "topthink/framework": "5.0.*",
-        "yansongda/pay": "^2.8"
+        "yansongda/pay": "^2.8",
+        "nesbot/carbon": "^2.29"
     },
     "autoload": {
         "psr-4": {

@@ -5,7 +5,7 @@ class Index
 {
     public function index()
     {
-        return view('index');
+        return view('index', ['version' => THINK_VERSION]);
     }
 
     //路径 http://thinkphp50.test/index.php/index/index/hello

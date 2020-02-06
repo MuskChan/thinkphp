@@ -35,6 +35,8 @@ class Users
     public function store(Request $request)
     {
         $params = $request->instance()->param();
+        dump($params);
+        exit;
         $this->model->save($params);
         $result = array(
             "code" => 200,
