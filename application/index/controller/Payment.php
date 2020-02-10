@@ -7,6 +7,7 @@ use think\Request;
 use Yansongda\Pay\Pay;
 use Yansongda\Pay\Log;
 use Carbon\Carbon;
+use app\index\model\Order;
 
 class Payment extends Controller
 {
@@ -54,22 +55,14 @@ class Payment extends Controller
     }
 
     // 前端回调页面
-    public function aliPayReturn()
+    public function aliPayReturn(Order $order)
     {
         $data = Pay::alipay($this->config)->verify(); // 是的，验签就这么简单！
-
-        // 订单号：$data->out_trade_no
-//        dump($data->out_trade_no);
-//        dump($data->trade_no);
-//        dump($data->total_amount);
-//        // 支付宝交易号：$data->trade_no
-//        // 订单总金额：$data->total_amount
 
         // 查询
         $result = Pay::alipay($this->config)->find($data->out_trade_no); // 返回 `Yansongda\Supports\Collection` 实例，可以通过 `$result->xxx` 访问服务器返回的数据。
         if ($result->code == '10000') {
-            $order_model = new \app\index\model\Order;
-            $order_model->save($result->total_amount);
+            $order->save($result->total_amount);
             $this->success('支付成功', 'Index/index', '', 0);
         } else {
             $this->error('支付失败', 'Index/index');

@@ -2,21 +2,18 @@
 namespace app\index\controller;
 
 use think\Request;
+use think\Controller;
+use app\index\model\User;
 
-class Users
+class Users extends Controller
 {
-    public function __construct()
-    {
-        $this->model = new \app\index\model\User;
-    }
-
     //http://thinkphp50.test/index.php/index/user/index
-    public function index(Request $request)
+    public function index(User $user, Request $request)
     {
         if ($request->instance()->isAjax()) {
-            $total = $this->model
+            $total = $user
                 ->count();
-            $list = $this->model
+            $list = $user
                 ->select();
 
             $result = array(
@@ -32,18 +29,20 @@ class Users
         return view('index');
     }
 
-    public function store(Request $request)
+    public function store(User $user, Request $request)
     {
-        $params = $request->instance()->param();
-        dump($params);
-        exit;
-        $this->model->save($params);
-        $result = array(
-            "code" => 200,
-            "msg" => '操作成功'
-        );
+        if ($request->instance()->isAjax()) {
+            $params = $request->instance()->param();
+            $user->save($params);
+            $result = array(
+                "code" => 200,
+                "msg" => '操作成功'
+            );
 
-        return json($result);
+            return json($result);
+        }
+
+        return view('create');
     }
 
     public function destroy(Request $request)

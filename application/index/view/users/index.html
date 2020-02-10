@@ -139,7 +139,7 @@
             cols: [[
                 {type: 'numbers', title: '#'},
                 {field: 'name', sort: true, title: '用户名'},
-                {field: 'sex', sort: true, title: '性别'},
+                {field: 'contact_phone', sort: true, title: '联系电话'},
                 {
                     field: 'createTime', sort: true, templet: function (d) {
                         return util.toDateString(d.createTime);
@@ -152,7 +152,16 @@
 
         // 添加
         $('#btnAddUser').click(function () {
-            showEditModel();
+            admin.open({
+                type: 2,
+                title: '添加用户',
+                content: '/index.php/index/users/store',
+                btn: ['新增', '取消'],
+                yes: function (index, layero) {
+                    var submit = layero.find('iframe').contents().find("#addUserBtn");
+                    submit.click();
+                }
+            });
         });
 
         // 搜索
@@ -175,6 +184,7 @@
 
         // 显示表单弹窗
         function showEditModel(mUser) {
+            console.log(mUser);
             admin.open({
                 type: 1,
                 title: (mUser ? '修改' : '添加') + '用户',
